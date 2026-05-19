@@ -18,3 +18,4 @@ app.get('/api/test', (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 服务器跑起来了：http://localhost:${PORT}`)
 })
+
