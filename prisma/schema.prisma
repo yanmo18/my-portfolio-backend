@@ -1,3 +1,6 @@
+// prisma/schema.prisma
+// 这是你的"店铺货架规划图"，定义了每种商品长什么样
+
 generator client {
   provider = "prisma-client-js"
   output   = "./src/generated/prisma"
