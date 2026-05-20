@@ -34,8 +34,17 @@ app.use('/api/experience', experienceRouter);
 // ============ 启动服务器 ============
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`
+// 先测试数据库连接
+const prisma = require('./prisma/client');
+
+async function startServer() {
+  try {
+    // 测试数据库连接
+    await prisma.$connect();
+    console.log('✅ 数据库连接成功！');
+    
+    app.listen(PORT, () => {
+      console.log(`
   ╔═══════════════════════════════════════╗
   ║  🏪 Express 后端小店全面营业！        ║
   ║  📍 地址: http://localhost:${PORT}        ║
@@ -49,5 +58,12 @@ app.listen(PORT, () => {
   ║     GET    /api/award                ║
   ║     ...更多接口...                     ║
   ╚═══════════════════════════════════════╝
-  `);
-});
+      `);
+    });
+  } catch (error) {
+    console.error('❌ 数据库连接失败:', error);
+    process.exit(1);
+  }
+}
+
+startServer();
