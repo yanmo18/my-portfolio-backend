@@ -25,7 +25,7 @@ const addAward = async (req, res) => {
     const award = await prisma.award.create({
       data: {
         title: title || '未命名奖项',
-        level                    // 奖项级别
+        level,                    // 奖项级别
       }
     });
     
