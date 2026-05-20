@@ -1,21 +1,53 @@
-const express = require('express')
-const cors = require('cors')
-require('dotenv').config()
+// backend/src/index.js
 
-const app = express()
-const PORT = process.env.PORT || 5000  // ⚠️ 端口固定 5000
+const express = require('express');
+const cors = require('cors');
+require('dotenv').config();
 
-// 中间件
-app.use(cors())           // 允许跨域，前端才能调接口
-app.use(express.json())   // 解析 JSON 请求体
+const app = express();
 
-// 测试路由——确认服务跑起来了
-app.get('/api/test', (req, res) => {
-  res.json({ message: '后端小店开业啦～', time: new Date().toLocaleString() })
-})
+// ============ 中间件 ============
+app.use(cors());
+app.use(express.json());
 
-// 启动！
+// 请求日志
+app.use((req, res, next) => {
+  console.log(`📩 ${req.method} ${req.path}`);
+  next();
+});
+
+// ============ 路由（迎接不同类型的顾客） ============
+
+// 导入路由
+const profileRouter = require('./routes/profile');
+const projectRouter = require('./routes/project');
+const awardRouter = require('./routes/award');
+const experienceRouter = require('./routes/experience');
+
+// 注册路由
+// ⚠️ 项目要求：图片使用 URL 输入方式，不做上传存储，所以没有简历上传接口
+app.use('/api/profile', profileRouter);
+app.use('/api/project', projectRouter);
+app.use('/api/award', awardRouter);
+app.use('/api/experience', experienceRouter);
+
+// ============ 启动服务器 ============
+const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
-  console.log(`🚀 服务器跑起来了：http://localhost:${PORT}`)
-})
-
+  console.log(`
+  ╔═══════════════════════════════════════╗
+  ║  🏪 Express 后端小店全面营业！        ║
+  ║  📍 地址: http://localhost:${PORT}        ║
+  ║  📋 接口列表:                          ║
+  ║     GET    /api/profile               ║
+  ║     PUT    /api/profile               ║
+  ║     GET    /api/project               ║
+  ║     POST   /api/project              ║
+  ║     PUT    /api/project              ║
+  ║     DELETE /api/project              ║
+  ║     GET    /api/award                ║
+  ║     ...更多接口...                     ║
+  ╚═══════════════════════════════════════╝
+  `);
+});
