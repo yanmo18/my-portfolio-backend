@@ -4,9 +4,11 @@ const express = require('express');
 const router = express.Router();
 const { getExperience, addExperience, updateExperience, deleteExperience } = require('../controllers/experienceController');
 
+
+// experience.js
 router.get('/', getExperience);
-router.post('/', addExperience);
-router.put('/', updateExperience);
-router.delete('/', deleteExperience);
+router.post('/', authenticate, addExperience);
+router.put('/', authenticate, updateExperience);
+router.delete('/', authenticate, deleteExperience);
 
 module.exports = router;

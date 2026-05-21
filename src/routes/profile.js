@@ -9,6 +9,6 @@ const { getProfile, updateProfile } = require('../controllers/profileController'
 router.get('/', getProfile);
 
 // PUT /api/profile - 更新个人信息
-router.put('/', updateProfile);
+router.put('/', authenticate, updateProfile);
 
 module.exports = router;

@@ -5,8 +5,8 @@ const router = express.Router();
 const { getAwards, addAward, updateAward, deleteAward } = require('../controllers/awardController');
 
 router.get('/', getAwards);
-router.post('/', addAward);
-router.put('/', updateAward);
-router.delete('/', deleteAward);
+router.post('/', authenticate, addAward);
+router.put('/', authenticate, updateAward);
+router.delete('/', authenticate, deleteAward);
 
 module.exports = router;
