@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
+const authenticate = require('../middleware/auth');
 const { getExperience, addExperience, updateExperience, deleteExperience } = require('../controllers/experienceController');
 
 

@@ -3,6 +3,7 @@
 
 const express = require('express');
 const router = express.Router();
+const authenticate = require('../middleware/auth');
 const { getProfile, updateProfile } = require('../controllers/profileController');
 
 // GET /api/profile - 获取个人信息
