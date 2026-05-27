@@ -44,7 +44,8 @@ const addProject = async (req, res) => {
 // ============ 更新项目 ============
 const updateProject = async (req, res) => {
   try {
-    const { id, ...data } = req.body;
+    const id = req.params.id || req.body.id;
+    const { id: bodyId, ...data } = req.body;
     
     if (!id) {
       return res.status(400).json({ error: '缺少项目 ID' });
@@ -67,16 +68,15 @@ const updateProject = async (req, res) => {
 const deleteProject = async (req, res) => {
   try {
     // MongoDB → MySQL：前端传的 _id 现在变成 id
-    // 可以同时兼容两种字段名
-    const { id, _id } = req.body;
-    const projectId = id || _id;
+    // 可以同时兼容 URL 参数和请求体两种方式
+    const id = req.params.id || req.body.id || req.body._id;
     
-    if (!projectId) {
+    if (!id) {
       return res.status(400).json({ error: '缺少项目 ID' });
     }
     
     await prisma.project.delete({
-      where: { id: parseInt(projectId) }
+      where: { id: parseInt(id) }
     });
     
     res.json({ message: '删除成功' });

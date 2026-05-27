@@ -41,17 +41,15 @@ const addExperience = async (req, res) => {
 // 更新经历
 const updateExperience = async (req, res) => {
   try {
-    const { id, _id, period, organization, role, description } = req.body;
+    const id = req.params.id || req.body.id || req.body._id;
+    const { id: bodyId, _id, period, organization, role, description } = req.body;
     
-    // MongoDB → MySQL：兼容 _id 和 id
-    const expId = id || _id;
-    
-    if (!expId) {
+    if (!id) {
       return res.status(400).json({ error: '缺少经历 ID' });
     }
     
     const experience = await prisma.experience.update({
-      where: { id: parseInt(expId) },
+      where: { id: parseInt(id) },
       data: { period, organization, role, description }
     });
     
@@ -65,15 +63,14 @@ const updateExperience = async (req, res) => {
 // 删除经历
 const deleteExperience = async (req, res) => {
   try {
-    const { id, _id } = req.body;
-    const expId = id || _id;
+    const id = req.params.id || req.body.id || req.body._id;
     
-    if (!expId) {
+    if (!id) {
       return res.status(400).json({ error: '缺少经历 ID' });
     }
     
     await prisma.experience.delete({
-      where: { id: parseInt(expId) }
+      where: { id: parseInt(id) }
     });
     
     res.json({ message: '删除成功' });

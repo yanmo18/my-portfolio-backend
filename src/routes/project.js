@@ -10,7 +10,9 @@ router.get('/', getProjects);
 
 // 需要登录才能操作的接口，加 authenticate 中间件
 router.post('/', authenticate, addProject);
+router.put('/:id', authenticate, updateProject);
 router.put('/', authenticate, updateProject);
+router.delete('/:id', authenticate, deleteProject);
 router.delete('/', authenticate, deleteProject);
 
 module.exports = router;

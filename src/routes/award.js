@@ -7,7 +7,9 @@ const { getAwards, addAward, updateAward, deleteAward } = require('../controller
 
 router.get('/', getAwards);
 router.post('/', authenticate, addAward);
+router.put('/:id', authenticate, updateAward);
 router.put('/', authenticate, updateAward);
+router.delete('/:id', authenticate, deleteAward);
 router.delete('/', authenticate, deleteAward);
 
 module.exports = router;

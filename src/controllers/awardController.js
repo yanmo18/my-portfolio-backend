@@ -39,17 +39,15 @@ const addAward = async (req, res) => {
 // 更新奖项
 const updateAward = async (req, res) => {
   try {
-    const { id, _id, title, level } = req.body;
+    const id = req.params.id || req.body.id || req.body._id;
+    const { id: bodyId, _id, title, level } = req.body;
     
-    // MongoDB → MySQL：兼容 _id 和 id
-    const awardId = id || _id;
-    
-    if (!awardId) {
+    if (!id) {
       return res.status(400).json({ error: '缺少奖项 ID' });
     }
     
     const award = await prisma.award.update({
-      where: { id: parseInt(awardId) },
+      where: { id: parseInt(id) },
       data: { title, level }
     });
     
@@ -63,15 +61,14 @@ const updateAward = async (req, res) => {
 // 删除奖项
 const deleteAward = async (req, res) => {
   try {
-    const { id, _id } = req.body;
-    const awardId = id || _id;
+    const id = req.params.id || req.body.id || req.body._id;
     
-    if (!awardId) {
+    if (!id) {
       return res.status(400).json({ error: '缺少奖项 ID' });
     }
     
     await prisma.award.delete({
-      where: { id: parseInt(awardId) }
+      where: { id: parseInt(id) }
     });
     
     res.json({ message: '删除成功' });

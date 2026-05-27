@@ -9,7 +9,9 @@ const { getExperience, addExperience, updateExperience, deleteExperience } = req
 // experience.js
 router.get('/', getExperience);
 router.post('/', authenticate, addExperience);
+router.put('/:id', authenticate, updateExperience);
 router.put('/', authenticate, updateExperience);
+router.delete('/:id', authenticate, deleteExperience);
 router.delete('/', authenticate, deleteExperience);
 
 module.exports = router;

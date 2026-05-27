@@ -27,10 +27,11 @@ const authRouter = require('./routes/auth');
 
 // 注册路由
 // ⚠️ 项目要求：图片使用 URL 输入方式，不做上传存储，所以没有简历上传接口
-app.use('/api/profile', profileRouter);
-app.use('/api/project', projectRouter);
-app.use('/api/award', awardRouter);
-app.use('/api/experience', experienceRouter);
+app.use('/get-profile', profileRouter);
+app.use('/update-profile', profileRouter);
+app.use('/api/projects', projectRouter);
+app.use('/api/awards', awardRouter);
+app.use('/api/experiences', experienceRouter);
 app.use('/api/auth', authRouter);
 
 // ============ 启动服务器 ============
