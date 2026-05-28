@@ -28,8 +28,8 @@ const getProfile = async (req, res) => {
 // PUT /api/profile
 const updateProfile = async (req, res) => {
   try {
-    // 新数据结构：contact 和 skills 是 Json 对象/数组
-    const { name, education, politicalStatus, birthDate, bio, contact, skills } = req.body;
+    // 新数据结构：contact、skills 和 certifications 是 Json 对象/数组
+    const { name, education, politicalStatus, birthDate, bio, contact, skills, certifications } = req.body;
     
     // 查找现有记录
     const existing = await prisma.profile.findFirst();
@@ -47,7 +47,8 @@ const updateProfile = async (req, res) => {
           birthDate, 
           bio, 
           contact,      // Json 类型，直接存对象
-          skills        // Json 类型，直接存数组
+          skills,        // Json 类型，直接存数组
+          certifications // Json 类型，直接存数组
         }
       });
     } else {
@@ -60,7 +61,8 @@ const updateProfile = async (req, res) => {
           birthDate,
           bio,
           contact,      // 直接存 Json
-          skills         // 直接存 Json
+          skills,       // 直接存 Json
+          certifications // 直接存 Json
         }
       });
     }

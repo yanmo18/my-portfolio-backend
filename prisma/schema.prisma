@@ -17,9 +17,11 @@ model Profile {
   avatar          String?
   bio             String?
   education       String?
+  politicalStatus String?
   birthDate       String?
   contact         Json?
   skills          Json?
+  certifications  Json?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
