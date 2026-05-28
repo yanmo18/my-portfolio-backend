@@ -11,6 +11,5 @@ router.get('/', getExperience);
 router.post('/', authenticate, addExperience);
 router.put('/', authenticate, updateExperience);
 router.delete('/:id', authenticate, deleteExperience);
-router.delete('/', authenticate, deleteExperience);
 
 module.exports = router;

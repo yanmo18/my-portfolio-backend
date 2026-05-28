@@ -31,6 +31,7 @@ app.use('/get-profile', profileRouter);
 app.use('/update-profile', profileRouter);
 app.use('/api/profile', profileRouter);
 app.use('/api/projects', projectRouter);
+app.use('/api/project', projectRouter);
 app.use('/get-projects', projectRouter);
 app.use('/add-project', projectRouter);
 app.use('/update-project', projectRouter);
