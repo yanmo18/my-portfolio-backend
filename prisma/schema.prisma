@@ -15,7 +15,7 @@ model Profile {
   id              Int      @id @default(autoincrement())
   name            String?
   avatar          String?
-  bio             String?
+  bio             String?  @db.Text
   education       String?
   politicalStatus String?
   birthDate       String?
